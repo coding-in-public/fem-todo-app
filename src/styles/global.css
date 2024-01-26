@@ -1,0 +1,120 @@
+@import "https://unpkg.com/open-props";
+
+*,
+*::after,
+*::before {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+input {
+  font: inherit;
+}
+
+:root {
+  /* colors */
+  --color-text-1--light: hsl(235, 21%, 11%);
+  --color-text-2--light: hsl(235, 24%, 19%);
+  --color-bkg--light: white;
+  --color-bkg-1--light: hsl(236, 33%, 92%);
+  --color-bkg-2--light: hsl(234, 39%, 85%);
+  --color-neutral-1--light: hsl(234, 11%, 52%);
+  --color-neutral-2--light: hsl(233, 14%, 35%);
+  --color-neutral-3--light: hsl(237, 14%, 26%);
+  --color-blue--light: hsl(220, 98%, 61%);
+  --color-gradient--light: linear-gradient(
+    hsl(192, 100%, 67%),
+    hsl(280, 87%, 65%)
+  );
+
+  --color-bkg: var(--color-bkg--light);
+  --color-bkg--dark: black;
+  --color-bkg-1--dark: hsl(235, 21%, 11%);
+  --color-bkg-2--dark: hsl(235, 24%, 19%);
+  --color-text-1--dark: hsl(236, 33%, 92%);
+  --color-text-2--dark: hsl(234, 39%, 85%);
+  --color-neutral-1--dark: hsl(234, 11%, 52%);
+  --color-neutral-2--dark: hsl(233, 14%, 35%);
+  --color-neutral-3--dark: hsl(237, 14%, 26%);
+  --color-blue--dark: hsl(220, 98%, 61%);
+  --color-gradient--dark: linear-gradient(
+    hsl(192, 100%, 67%),
+    hsl(280, 87%, 65%)
+  );
+
+  --color-text-1: var(--color-text-1--light);
+  --color-text-2: var(--color-text-2--light);
+  --color-bkg-1: var(--color-bkg-1--light);
+  --color-bkg-2: var(--color-bkg-2--light);
+  --color-neutral-1: var(--color-neutral-1--light);
+  --color-neutral-2: var(--color-neutral-2--light);
+  --color-neutral-3: var(--color-neutral-3--light);
+  --color-blue: var(--color-blue--light);
+  --color-gradient: var(--color-gradient--light);
+  color-scheme: light;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --color-text-1: var(--color-text-1--dark);
+    --color-text-2: var(--color-text-2--dark);
+    --color-bkg: var(--color-bkg--dark);
+    --color-bkg-1: var(--color-bkg-1--dark);
+    --color-bkg-2: var(--color-bkg-2--dark);
+    --color-neutral-1: var(--color-neutral-1--dark);
+    --color-neutral-2: var(--color-neutral-2--dark);
+    --color-neutral-3: var(--color-neutral-3--dark);
+    --color-blue: var(--color-blue--dark);
+    --color-gradient: var(--color-gradient--dark);
+    color-scheme: dark;
+  }
+}
+
+[data-theme="dark"] {
+  --color-text-1: var(--color-text-1--dark);
+  --color-text-2: var(--color-text-2--dark);
+  --color-bkg: var(--color-bkg--dark);
+  --color-bkg-1: var(--color-bkg-1--dark);
+  --color-bkg-2: var(--color-bkg-2--dark);
+  --color-neutral-1: var(--color-neutral-1--dark);
+  --color-neutral-2: var(--color-neutral-2--dark);
+  --color-neutral-3: var(--color-neutral-3--dark);
+  --color-blue: var(--color-blue--dark);
+  --color-gradient: var(--color-gradient--dark);
+  color-scheme: dark;
+}
+
+[data-theme="light"] {
+  --color-text-1: var(--color-text-1--light);
+  --color-text-2: var(--color-text-2--light);
+  --color-bkg: var(--color-bkg--light);
+  --color-bkg-1: var(--color-bkg-1--light);
+  --color-bkg-2: var(--color-bkg-2--light);
+  --color-neutral-1: var(--color-neutral-1--light);
+  --color-neutral-2: var(--color-neutral-2--light);
+  --color-neutral-3: var(--color-neutral-3--light);
+  --color-blue: var(--color-blue--light);
+  --color-gradient: var(--color-gradient--light);
+  color-scheme: light;
+}
+
+body {
+  font-family: "Anek Latin", sans-serif;
+  font-size: 18px;
+  background-color: var(--color-bkg-1);
+  color: var(--color-neutral-3);
+  display: grid;
+  gap: var(--size-4);
+  align-items: center;
+  place-content: start;
+  min-height: 100vh;
+}
+
+[data-theme="light"] .icon-dark {
+  display: none;
+}
+
+[data-theme="dark"] .icon-light {
+  display: none;
+}

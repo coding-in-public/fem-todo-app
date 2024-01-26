@@ -1,0 +1,85 @@
+<form id="new-task">
+  <button class="fake-checkbox"></button>
+  <input type="text" name="task" required />
+</form>
+
+<style>
+  form {
+    background-color: var(--color-bkg);
+    padding: var(--size-3);
+    border: none;
+    border-radius: var(--radius-2);
+    display: flex;
+    gap: var(--size-3);
+  }
+  input {
+    border: none;
+    transition: box-shadow 200ms cubic-bezier(0.075, 0.82, 0.165, 1);
+    &:focus {
+      outline: 2px solid transparent;
+    }
+    &:focus-visible {
+      box-shadow:
+        0 0 0 2px var(--color-bkg),
+        0 0 0 4px var(--color-blue);
+    }
+  }
+  .fake-checkbox {
+    width: 1.8rem;
+    height: 1.8rem;
+    border-radius: 100vmax;
+    display: grid;
+    place-items: center;
+    background-color: var(--color-bkg);
+    border: 2px solid var(--color-neutral-1);
+  }
+</style>
+
+<script
+  src="https://cdnjs.cloudflare.com/ajax/libs/dompurify/3.0.8/purify.min.js"
+  integrity="sha512-5g2Nj3mqLOgClHi20oat1COW7jWvf7SyqnvwWUsMDwhjHeqeTl0C+uzjucLweruQxHbhDwiPLXlm8HBO0011pA=="
+  crossorigin="anonymous"
+  referrerpolicy="no-referrer"></script>
+
+<script>
+  const form = document.querySelector("#new-task") as HTMLFormElement;
+
+  form.addEventListener("submit", async (e) => {
+    e.preventDefault();
+
+    const formData = new FormData(form);
+
+    const task = formData.get("task");
+
+    // @ts-ignore
+    const cleanTask = DOMPurify.sanitize(task);
+
+    try {
+      const res = await fetch("/api/todo", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          title: cleanTask,
+          isComplete: false,
+        }),
+      });
+      if (!res.ok) {
+        throw new Error("big yikes");
+      }
+      const data = await res.json();
+      if (data.message === "success") {
+        // add the todo
+      } else {
+        throw new Error("yikes");
+      }
+    } catch (e) {
+      if (e instanceof Error) {
+        console.error(e.message);
+      } else {
+        console.error(e);
+      }
+    }
+  });
+</script>

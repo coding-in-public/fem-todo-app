@@ -1,0 +1,74 @@
+---
+import { Icon } from "astro-icon/components";
+import type { Todo } from "../pages/index.astro";
+
+type Props = {
+  data: Todo;
+};
+
+const { data } = Astro.props;
+
+const { id, isComplete, title } = data;
+---
+
+<div class="wrapper">
+  <input type="checkbox" name={id} id={id} />
+  <div class="fake-checkbox">
+    <Icon name="icon-check" size={16} class="check" />
+  </div>
+  <label for={id}>{title}</label>
+  <button class="delete">
+    <Icon name="icon-cross" size={16} />
+  </button>
+</div>
+
+<style>
+  .wrapper {
+    position: relative;
+    display: flex;
+    gap: var(--size-3);
+    padding: var(--size-3);
+    align-items: center;
+    background-color: var(--color-bkg);
+    border-radius: var(--radius-2);
+  }
+
+  input {
+    opacity: 0;
+    position: absolute;
+    inset: 0;
+  }
+
+  .fake-checkbox {
+    width: 1.8rem;
+    height: 1.8rem;
+    border-radius: 100vmax;
+    display: grid;
+    place-items: center;
+    background-color: var(--color-bkg);
+    border: 2px solid var(--color-neutral-1);
+    transition: box-shadow 200ms cubic-bezier(0.075, 0.82, 0.165, 1);
+  }
+
+  .check {
+    opacity: 0;
+  }
+
+  input:focus-visible + .fake-checkbox {
+    box-shadow:
+      0 0 0 2px var(--color-bkg),
+      0 0 0 4px var(--color-blue);
+  }
+
+  input:checked + .fake-checkbox {
+    background: var(--color-gradient);
+  }
+
+  input:checked ~ label {
+    text-decoration: line-through;
+  }
+
+  input:checked + .fake-checkbox > .check {
+    opacity: 1;
+  }
+</style>

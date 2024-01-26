@@ -11,7 +11,11 @@
   },
   "dependencies": {
     "@astrojs/check": "^0.4.1",
+    "@astrojs/netlify": "^5.0.0",
     "astro": "^4.2.4",
+    "astro-icon": "^1.0.2",
+    "dompurify": "^3.0.8",
+    "json-server": "1.0.0-alpha.22",
     "typescript": "^5.3.3"
   }
 }

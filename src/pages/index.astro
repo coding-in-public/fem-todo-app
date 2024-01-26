@@ -1,16 +1,46 @@
 ---
+import ThemeToggle from "../components/ThemeToggle.astro";
+import Todo from "../components/Todo.astro";
+import TodoInput from "../components/TodoForm.astro";
+import "../styles/global.css";
 
+export type Todo = {
+  id: string;
+  title: string;
+  isComplete: boolean;
+};
+
+const posts = await fetch("http://localhost:3000/todos");
+const data: Todo[] = await posts.json();
 ---
 
-<html lang="en">
-	<head>
-		<meta charset="utf-8" />
-		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-		<meta name="viewport" content="width=device-width" />
-		<meta name="generator" content={Astro.generator} />
-		<title>Astro</title>
-	</head>
-	<body>
-		<h1>Astro</h1>
-	</body>
+<html lang="en" data-theme="light">
+  <head>
+    <meta charset="utf-8" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <meta name="viewport" content="width=device-width" />
+    <meta name="generator" content={Astro.generator} />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Anek+Latin:wght@400;600&display=swap"
+      rel="stylesheet"
+    />
+    <title>Astro TODO App</title>
+  </head>
+  <body>
+    <header>
+      <h1>Todo</h1>
+      <ThemeToggle />
+    </header>
+    <TodoInput />
+    <div class="todos">{data.map((i) => <Todo data={i} />)}</div>
+  </body>
 </html>
+
+<style>
+  .todos {
+    display: grid;
+    gap: var(--size-2);
+  }
+</style>

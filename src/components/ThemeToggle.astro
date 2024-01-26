@@ -1,0 +1,67 @@
+---
+import { Icon } from "astro-icon/components";
+---
+
+<button id="theme-toggle" aria-label="Toggle Theme">
+  <Icon name="icon-moon" size={20} class="icon-light" />
+  <Icon name="icon-sun" size={20} class="icon-dark" />
+</button>
+
+<style>
+  button {
+    cursor: pointer;
+    display: grid;
+    place-items: center;
+    padding: var(--size-1);
+    background-color: transparent;
+    border: none;
+    border-radius: 100vmax;
+    transition: box-shadow 200ms cubic-bezier(0.075, 0.82, 0.165, 1);
+    &:focus {
+      outline: 2px solid transparent;
+    }
+    &:focus-visible {
+      box-shadow:
+        0 0 0 2px var(--color-bkg),
+        0 0 0 4px var(--color-blue);
+    }
+  }
+</style>
+
+<script>
+  const themeBtn = document.querySelector("#theme-toggle") as HTMLButtonElement;
+
+  function getNaturalTheme() {
+    return window.matchMedia &&
+      window.matchMedia("(prefers-color-scheme: dark)").matches
+      ? "dark"
+      : "light";
+  }
+
+  function setTheme(newTheme: "light" | "dark") {
+    // save new theme to local storage
+    localStorage.setItem("theme", newTheme);
+
+    // load theme in UI
+    document.documentElement.setAttribute("data-theme", newTheme);
+  }
+
+  function getTheme(): "light" | "dark" {
+    return (
+      (localStorage.getItem("theme") as "light" | "dark") ?? getNaturalTheme()
+    );
+  }
+
+  themeBtn.addEventListener("click", () => {
+    // get the existing theme if exists?
+    const theme = getTheme();
+
+    // get new theme
+    const newTheme = theme === "dark" ? "light" : "dark";
+
+    setTheme(newTheme);
+  });
+
+  // window event listener for displaying theme
+  setTheme(getTheme());
+</script>
